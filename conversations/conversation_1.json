@@ -1,0 +1,22 @@
+[
+    {
+        "sender": "Alice",
+        "text": "Hey Bob, did you get my email about the project deadline extension?"
+    },
+    {
+        "sender": "Bob",
+        "text": "Hi Alice, yes I did. Thanks for the heads-up! I'll update the team."
+    },
+    {
+        "sender": "Alice",
+        "text": "Great! Also, check the email regarding the Q3 marketing budget. It has some important updates."
+    },
+    {
+        "sender": "Bob",
+        "text": "Will do. Is there a specific email about the new client proposal?"
+    },
+    {
+        "sender": "Alice",
+        "text": "Yes, I sent that yesterday. Subject: 'New Client Proposal - Initial Draft'."
+    }
+]

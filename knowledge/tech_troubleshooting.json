@@ -1,0 +1,5 @@
+[
+  {
+    "content": "My laptop is running really slow lately. It takes forever to start up. Slow startup can have several causes. Let's start with basics: How long has this been happening? Also, do you hear the fan running loudly or does the laptop get hot? It started about two weeks ago. Yes, the fan is quite loud and it gets warm quickly. This suggests your CPU is working overtime. Check Task Manager (Ctrl+Shift+Esc) to see which processes are using high CPU. Also, when did you last restart your computer completely? I see Chrome is using 45% CPU even with just a few tabs open. I usually just close the lid instead of shutting down. Found the culprits! Try closing Chrome completely and restart your laptop. Chrome can accumulate memory leaks over time. Also, get in the habit of fully shutting down at least once a week to clear temporary files and reset processes."
+  }
+]

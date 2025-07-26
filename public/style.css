@@ -1,0 +1,416 @@
+/* style.css - Full Claude Chat Interface */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f8f9fa; /* Overall background color */
+    height: 100vh;
+    display: flex; /* Use flex to layout sidebar and main content */
+    overflow: hidden; /* Prevent body scroll, individual sections will scroll */
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 320px;
+    background: white;
+    border-right: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Fills full height */
+    position: relative; /* For new-chat-floating-btn positioning */
+}
+
+.sidebar-header {
+    padding: 24px 20px 20px;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.sidebar-title {
+    font-size: 28px;
+    font-weight: 500;
+    color: #1f2937;
+    margin-bottom: 20px;
+}
+
+/* Sidebar Search Box */
+.search-box {
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 16px 12px 44px; /* Space for icon */
+    border: 2px solid #3b82f6; /* Blue border */
+    border-radius: 8px;
+    font-size: 16px;
+    background: white;
+    outline: none;
+}
+.search-input::placeholder {
+    color: #9ca3af;
+}
+
+.search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6b7280;
+    width: 16px;
+    height: 16px;
+}
+
+/* Sidebar Chat List */
+.chat-list {
+    flex: 1; /* Takes up remaining space in sidebar */
+    padding: 16px;
+    overflow-y: auto; /* Enables scrolling for chat items */
+}
+
+.chat-item {
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.chat-item:hover {
+    background: #f9fafb;
+}
+
+.chat-item.active {
+    background: #eff6ff; /* Light blue background for active item */
+    border: 1px solid #dbeafe; /* Light blue border */
+}
+
+.chat-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #1f2937;
+    margin-bottom: 4px;
+    white-space: nowrap; /* Prevents text wrap */
+    overflow: hidden; /* Hides overflowed text */
+    text-overflow: ellipsis; /* Adds "..." for overflowed text */
+}
+
+.chat-time {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+/* Floating New Chat Button in Sidebar */
+.new-chat-floating-btn {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #1f2937; /* Dark background */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: background-color 0.2s, box-shadow 0.2s;
+    opacity: 0; /* Hidden by default, shown via JS */
+    pointer-events: none; /* Disables clicks when hidden */
+}
+
+.new-chat-floating-btn.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.new-chat-floating-btn:hover {
+    background-color: #374151;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+
+/* Main Content Area */
+.main-content {
+    flex: 1; /* Takes up remaining horizontal space */
+    display: flex;
+    flex-direction: column; /* Stacks elements vertically */
+    height: 100vh; /* Fills full viewport height */
+    background: #f8f9fa; /* Light background for chat area */
+    position: relative; /* For input area positioning */
+}
+
+/* Notification Bar (Warning Message) */
+.notification-bar {
+    background: #fef3c7;
+    border: 1px solid #f59e0b;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 16px; /* Margin from edges */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0; /* Prevent it from shrinking */
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.warning-icon {
+    width: 20px;
+    height: 20px;
+    color: #d97706;
+}
+
+.notification-text {
+    color: #92400e;
+    font-size: 14px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: #92400e;
+    cursor: pointer;
+    padding: 4px;
+}
+
+/* Chat Area (Welcome Message or Conversation) */
+.chat-area {
+    flex: 1; /* THIS IS KEY: It expands to fill remaining vertical space */
+    display: flex;
+    flex-direction: column; /* To stack welcome message / conversation messages */
+    padding: 20px; /* Padding for conversation */
+    overflow-y: auto; /* THIS WILL NOW TRIGGER FOR THE ENTIRE CHAT AREA */
+    
+    /* Remove centering when chat messages are present to allow normal flow */
+    /* Only center if welcome message is active */
+    justify-content: flex-start; /* Start content from the top */
+    align-items: stretch; /* Stretch content horizontally */
+}
+
+.welcome-message {
+    text-align: center;
+    max-width: 600px;
+    margin: auto; /* This centers it when it's visible */
+    display: block; /* Show by default */
+}
+.welcome-message.hidden {
+    display: none; /* Hide when conversation starts */
+}
+
+.welcome-title {
+    font-size: 32px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 16px;
+}
+
+.welcome-subtitle {
+    font-size: 18px;
+    color: #6b7280;
+    margin-bottom: 40px;
+    line-height: 1.5;
+}
+
+/* Conversation Messages Container - now this scrolls WITHIN .chat-area */
+.conversation-messages {
+    flex-grow: 1; /* Allows messages to take up available space within .chat-area */
+    display: flex;
+    flex-direction: column; /* Stack messages */
+    gap: 15px; /* Space between message bubbles */
+    max-width: 800px; /* Max width for message bubbles */
+    width: 100%;
+    margin: 0 auto; /* Center messages */
+    box-sizing: border-box; /* Include padding in height */
+    
+    /* Initially hidden when welcome message is shown */
+    display: none; 
+}
+.conversation-messages.active { /* Class to show conversation messages */
+    display: flex;
+}
+
+
+/* Individual Chat Messages */
+.chat-message {
+    padding: 12px 16px;
+    border-radius: 12px;
+    max-width: 80%; /* Limit bubble width */
+    word-wrap: break-word;
+    line-height: 1.5;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05); /* Subtle shadow on bubbles */
+}
+
+.chat-message.user {
+    background-color: #e0f2fe; /* Light blue */
+    color: #0c4a6e; /* Darker blue text */
+    margin-left: auto; /* Align to right */
+    border-bottom-right-radius: 4px; /* Pointy corner */
+}
+
+.chat-message.assistant {
+    background-color: #f0f2f5; /* Light grey */
+    color: #374151; /* Dark grey text */
+    margin-right: auto; /* Align to left */
+    border-bottom-left-radius: 4px; /* Pointy corner */
+}
+
+
+/* Input Area */
+.input-area {
+    width: 100%;
+    max-width: 800px; /* Match conversation max-width */
+    padding: 0 20px 20px; /* Bottom padding */
+    margin: 0 auto; /* Center the input area */
+    box-sizing: border-box;
+    flex-shrink: 0; /* Prevent it from shrinking */
+}
+
+.input-container {
+    position: relative;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.message-input {
+    width: 100%;
+    min-height: 56px; /* Min height for single line */
+    max-height: 150px; /* Max height before scroll bar for textarea */
+    padding: 16px 60px 16px 16px; /* Space for send button */
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    line-height: 1.5;
+    resize: none; /* Disable manual resize handle */
+    outline: none;
+    font-family: inherit;
+    overflow-y: auto; /* Enable internal scroll if content exceeds max-height */
+}
+
+.send-button {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    width: 36px;
+    height: 36px;
+    background: #3b82f6;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.send-button:hover {
+    background: #2563eb;
+}
+
+.send-button:disabled {
+    background: #d1d5db;
+    cursor: not-allowed;
+}
+
+.send-icon {
+    width: 16px;
+    height: 16px;
+    color: white;
+}
+
+/* Custom Scrollbars (for chat-list and conversation-messages) */
+.scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 3px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column; /* Stack sidebar and main content vertically */
+    }
+    .sidebar {
+        width: 100%;
+        height: auto; /* Adjust height based on content */
+        border-right: none;
+        border-bottom: 1px solid #e5e7eb;
+        order: 1; /* Place sidebar at top */
+    }
+    .sidebar-header {
+        padding-bottom: 15px; /* Adjust padding */
+    }
+    .sidebar-title {
+        margin-bottom: 15px;
+    }
+    .chat-list {
+        padding: 0 16px 10px; /* Adjust padding */
+        max-height: 300px; /* Limit sidebar height on small screens */
+    }
+    .new-chat-floating-btn {
+        position: static; /* No longer fixed */
+        transform: none;
+        margin: 10px auto 20px; /* Center and give spacing */
+        box-shadow: none; /* Remove shadow */
+        opacity: 1; /* Always visible if content is empty or small */
+        pointer-events: auto;
+    }
+    .main-content {
+        flex: 1;
+        order: 2; /* Place main content below sidebar */
+    }
+    .notification-bar {
+        margin: 10px; /* Smaller margins for notification */
+    }
+    .chat-area {
+        padding: 10px; /* Smaller padding for chat area */
+    }
+    .welcome-message .welcome-title {
+        font-size: 24px;
+    }
+    .welcome-message .welcome-subtitle {
+        font-size: 16px;
+    }
+    .input-area {
+        padding: 0 10px 10px; /* Smaller padding */
+    }
+    .message-input {
+        min-height: 50px; /* Adjust min height */
+        padding: 12px 50px 12px 12px; /* Adjust padding for smaller send button */
+    }
+    .send-button {
+        width: 32px;
+        height: 32px;
+        right: 8px;
+        bottom: 8px;
+    }
+    .send-icon {
+        width: 14px;
+        height: 14px;
+    }
+}

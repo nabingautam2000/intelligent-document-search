@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="content="width=device-width, initial-scale=1.0">
+    <title>File Search System</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1 class="sidebar-title">Your chat history</h1>
+            <div class="search-box">
+                <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                <input type="text" class="search-input" id="sidebarSearchInput" placeholder="Search your chats..." />
+            </div>
+        </div>
+        
+        <div class="chat-list scrollbar" id="chatList">
+            </div>
+
+        <button class="new-chat-floating-btn" id="newChatFloatingBtn">
+            <span>+</span> New chat
+        </button>
+    </div>
+
+    <div class="main-content">
+        <div class="notification-bar" id="notificationBar">
+            <div class="notification-content">
+                <svg class="warning-icon" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/>
+                </svg>
+                <span class="notification-text">Viewing the conversation count is temporarily disabled for maintenance</span>
+            </div>
+            <button class="close-btn" id="closeNotificationBtn">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="chat-area" id="mainChatArea">
+            <div class="welcome-message" id="welcomeMessage">
+                <h2 class="welcome-title">How can File Search System help you today?</h2>
+                <p class="welcome-subtitle">Start a conversation to get help with file search, knowledge base queries, and more.</p>
+            </div>
+            <div class="conversation-messages" id="conversationMessages">
+                </div>
+        </div>
+
+        <div class="input-area">
+            <div class="input-container">
+                <textarea 
+                    class="message-input" 
+                    id="chatInput"
+                    placeholder="Message File Search System..." 
+                    rows="1"
+                    onkeydown="handleKeyDown(event)"
+                    oninput="autoResize(this)"
+                ></textarea>
+                <button class="send-button" id="sendMessageBtn" disabled>
+                    <svg class="send-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
