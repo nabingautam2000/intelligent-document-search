@@ -25,7 +25,7 @@ To get this project up and running on your local machine, follow these steps:
 
 1.  **Clone the Repository:**
     ```bash
-    git clone [https://github.com/nabingautam2000/intelligent-document-search.git](https://github.com/nabingautam2000/intelligent-document-search.git)
+    git clone https://github.com/nabingautam2000/intelligent-document-search.git
     cd intelligent-document-search
     ```
 
